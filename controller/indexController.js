@@ -8,7 +8,7 @@ exports.modelPage = function (req, res, next) {
 }
 exports.createModel = async(req, res) => {
 
-    await MC.insertOne(req.body)
+    await MC.create(req.body)
     res.json({ status: 'success'});
     
 }
