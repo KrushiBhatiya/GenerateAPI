@@ -408,7 +408,7 @@
                 .catch(err => console.error('Error:', err));
         }
         function displayData(data) {
-            document.getElementById('tokenDisplay').textContent = `Token: ${data.token}`;
+            document.getElementById('tokenDisplay').textContent = `Authorization: ${data.token}`;
             document.getElementById('apiMethodsDisplay').innerHTML = data.apiMethods;
             document.getElementById('exampleDisplay').innerHTML = data.exampleOutput;
 
