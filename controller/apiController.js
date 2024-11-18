@@ -83,8 +83,8 @@ exports.viewData = async (req, res) => {
         if (data.length === 0) throw new Error("Data not found")
 
         const withoutApiKeyData = data.map((item) => {
-            const { apiKey, ...rest } = item.toObject();
-            return rest;
+            const { _id, modelFieldData } = item.toObject();
+            return { _id, ...modelFieldData };
         });
 
         res.status(200).json({

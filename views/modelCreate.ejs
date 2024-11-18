@@ -163,6 +163,43 @@
             flex-wrap: wrap;
             width: 100%;
         }
+
+        @media (max-width:650px) {
+
+            input[type="text"],
+            select {
+
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width:576px) {
+
+            input[type="text"],
+            select {
+                min-width: 160px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width:480px) {
+            input[type="text"],
+            select {
+                min-width: auto;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width:440px) {}
+
+        @media (max-width:360px) {}
+
+        @media (max-width:280px) {}
     </style>
 </head>
 
@@ -397,14 +434,14 @@
             document.getElementById('exampleDisplay').style.padding = "0px";
 
             const formContainer = document.getElementById('formContainer');
-                    // Remove all rows except the first one
-                    const rows = formContainer.querySelectorAll('.container');
-                    rows.forEach((row, index) => {
-                        if (index !== 0) { // Keep the first row
-                            row.remove();
-                        }
-                    });
-                
+            // Remove all rows except the first one
+            const rows = formContainer.querySelectorAll('.container');
+            rows.forEach((row, index) => {
+                if (index !== 0) { // Keep the first row
+                    row.remove();
+                }
+            });
+
             document.querySelector('input[name="textField"]').value = '';
             document.querySelector('input[name="modelname"]').value = '';
             document.querySelector('select[name="dropdown"]').value = '';
