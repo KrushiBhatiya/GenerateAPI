@@ -214,7 +214,7 @@
             <input type="text" placeholder="Enter FieldName" name="textField" required>
             <select name="dropdown" required>
                 <option value="" selected disabled>SELECT TYPE</option>
-                <option value="String">String</option>
+                <option value="String">Text</option>
                 <option value="Number">Number</option>
                 <option value="Boolean">Boolean</option>
                 <option value="Date">Date</option>
@@ -347,7 +347,7 @@
             const example = generateExample(model);
 
             // Display the generated random key (token)
-            document.getElementById('tokenDisplay').textContent = `Token: ${randomKey}`;
+            document.getElementById('tokenDisplay').textContent = `Authorization : ${randomKey}`;
 
             const apiBaseUrl = `https://generateapi.onrender.com/api/${modelname}`;
             const apiMethods = `
