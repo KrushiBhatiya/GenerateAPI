@@ -186,10 +186,12 @@
         }
 
         @media (max-width:480px) {
+
             input[type="text"],
             select {
                 min-width: auto;
             }
+
             h1 {
                 font-size: 2.2rem;
             }
@@ -218,6 +220,8 @@
                 <option value="Number">Number</option>
                 <option value="Boolean">Boolean</option>
                 <option value="Date">Date</option>
+                <option value="SingleFile">File ( Upload Single File )</option>
+                <option value="MultiFile">File ( Upload Multiple File )</option>
             </select>
             <button type="button" onclick="removeFormField(this)">-</button>
         </div>
@@ -250,6 +254,14 @@
                     randomDate.setDate(randomDate.getDate() - Math.floor(Math.random() * 1000)); // Random past date
                     example[key] = randomDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
                 }
+                else if (type === "SingleFile") {
+                    example[key] = `${key}_${Math.random().toString(36).substring(7)}.png`; // Random file path
+                } else if (type === "MultiFile") {
+                    const fileCount = Math.floor(Math.random() * 5) + 1; // 1 to 5 files
+                    example[key] = Array.from({ length: fileCount }, (_, i) =>
+                        `${key}_${i + 1}_${Math.random().toString(36).substring(7)}.png`
+                    );
+                }
             }
             return example;
         }
@@ -272,6 +284,8 @@
                 <option value="Number">Number</option>
                 <option value="Boolean">Boolean</option>
                 <option value="Date">Date</option>
+                <option value="SingleFile">File ( Upload Single File )</option>
+                <option value="MultiFile">File ( Upload Multiple File )</option>
             `;
 
             // Create a "-" button
@@ -320,33 +334,37 @@
         // Function to gather form data and submit
         function submitData() {
             const modelname = document.getElementById('modelname').value.trim();
-            // alert(modelname)
             const textFields = document.querySelectorAll('input[name="textField"]');
             const dropdowns = document.querySelectorAll('select[name="dropdown"]');
 
             const model = {};
             let allFieldsFilled = true;
+
+            if (modelname.includes(' ')) {
+                allFieldsFilled = false;
+            }
+
             textFields.forEach((textField, index) => {
                 const textValue = textField.value.trim();
                 const dropdownValue = dropdowns[index].value;
-                if (!textValue || !dropdownValue) {
+
+                if (!textValue || !dropdownValue || textValue.includes(' ')) {
                     allFieldsFilled = false;
                 } else {
                     // Add to model object if text field is filled
                     model[textValue] = dropdownValue;
                 }
             });
-            console.log("hello");
 
             if (!allFieldsFilled) {
                 alert('Please Provide valid data before generating the API key.');
                 return;
             }
-            // Generate a random key
+            
             const randomKey = generateRandomKey();
             const example = generateExample(model);
 
-            // Display the generated random key (token)
+            
             document.getElementById('tokenDisplay').textContent = `Authorization : ${randomKey}`;
 
             const apiBaseUrl = `https://generateapi.onrender.com/api/${modelname}`;

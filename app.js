@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose')
+
 mongoose.connect('mongodb+srv://admin:admin@cluster0.w16vr.mongodb.net/generateapi?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true, bufferCommands: false })
 .then(() => {
   console.log("success");
@@ -11,7 +12,14 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.w16vr.mongodb.net/generatea
 .catch((error) => {
   console.log(error.message);
 })
-mongoose.set('bufferTimeoutMS', 20000);
+// mongoose.connect('mongodb://localhost:27017/generateapi')
+// .then(() => {
+//   console.log("success");
+// })
+// .catch((error) => {
+//   console.log(error.message);
+// })
+// mongoose.set('bufferTimeoutMS', 20000);
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api')
 
@@ -20,7 +28,6 @@ var app = express();
 // view engine setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
